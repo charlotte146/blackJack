@@ -1,0 +1,1 @@
+$('.testjquery').text('Hello world');
