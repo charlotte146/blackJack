@@ -1,5 +1,7 @@
 let express = require('express');
 let bodyparser = require('body-parser');
+const e = require('express');
+const prompt = require("prompt-sync")();
 
 let app = express();
 let port = 3000;
@@ -69,16 +71,16 @@ class Player {
 		this._cards.push(newCard); 
 		console.log(this._cards[0]);
 		this._cardsValue = this.calcCardsValue();
-	 }
+	}
 
 	resetCards() { for (let i = 0 ; i > this._cards.length ; i++) { this._cards.pop() } this._cardsValue = 0; }
 
-	setOkStatus() { this._state = 'ok'; };
+	setOkStatus() { this._state = 'ok'; }
+	showStatus() { console.log(this._state); }
 
 	calcCardsValue() { 
 		let res = 0;
 		for (let i = 0 ; i < this._cards.length ; i++) { res += this._cards[i]; } 
-
 		return res;
 	}
 
@@ -93,20 +95,57 @@ class Player {
 
 function addPlayer(pseudo) { let tmp = new Player(pseudo); players.push(tmp); }
 
-function isLoose() { for (let i = 0 ; i < players.length ; i++) { if (this._cardsValue > 21) {playersState[i] = 'loose' } } }
-
 function showPlayers() { for (let i = 0 ; i < players.length ; i++) { console.log (players[i].toString()) } }
 
-addPlayer("Croupier");
+function newTurn() {
+	for(let i = 0 ; i < players.length ; i++) {
+		players[i].resetCards();
+	
+		for(let i = 0 ; i < players.length ; i++) {
+			players[i].addCard();
+			players[i].addCard();
+		}
+	};
+
+	for(let i = 1 ; i < players.length ; i++) {
+
+		while(players[i].state != "ok" || players[i].state != "loose") {
+			players[0].toString();
+			players[i].toString();
+			const choice = prompt("que souhaitez vous faire ? Nouvelle carte (C) ? C'est bon (O) ?");
+			switch(choice) {
+				case "O": players[i].addCard(); break;
+				case "N": players[i].setOkStatus(); break;
+			
+				default:
+					break;
+			}
+		}
+	};
+
+	while(players[0].state != "ok" || players[0].state != "loose") {
+		if (players[0].cardsValue < 17 && players[0].state != "loose") {
+			players[0].addCard();
+		}
+		else {
+			players[0].setOkStatus();
+		}
+	}
+	/*calcRes()*/
+}
 
 addPlayer("Clement");
-players[1].addCard();
-players[1].addCard();
-
 addPlayer("Charlotte");
 addPlayer("Cedric");
 
 showPlayers();
+
+/*-------------------------*/
+
+/*------ Tour de jeu ------*/
+
+
+while(true) { newTurn(); }
 
 /*-------------------------*/
 /*
@@ -119,51 +158,4 @@ app.post('/test', (req,res,next) => {
 	console.log(req.body.name);
 	res.render('index.ejs', {monobjet : myobject});
 });
-
-class ajtcarte{
-	this.cards.push(valeur[Math.random(valeur.length)]);
-
-}
-
-
-
-//	prends au hasard une carte dans le paquet (le tableau)
-//	prends 4fois le tableau = 1jeu 
-
-var valeur = {"as" : 1,
-			"deux" : 2,
-			"trois" : 3,
-			"quatre" : 4,
-			"cinq" : 5,
-			"six" : 6,
-			"sept" : 7,
-			"huit" : 8,
-			"neuf" : 9,
-			"dix" : 10,
-			"valet" : 10,
-			"dame" : 10,
-			"roi" : 10, 
-			"as": 11
-			};
-
-
-
-// class Joueur {
-// 	constructor(nom, numero){
-// 		this.pseudo=pseudo;
-// 		this.numero=numero;
-
-// 	}
-// }
-
-console.log=valeur;
-
-
-//body = contenu de la requete, 
-//name = nom du champ du formulaire
-
-
 */
-
-
-
