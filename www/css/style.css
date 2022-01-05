@@ -1,1 +1,28 @@
-.class-item { background-color: red; }
+html,body{
+    padding: 0%;
+    margin: 0%;
+    font-family: Helvetica, sans-serif;
+}
+
+#jeu{
+    width: 1200px;
+    height: 600px;
+    margin: auto;
+    background-color: #1E5128;
+    color:white;
+}
+
+
+
+.navbar a{
+    color: black;
+    margin: 20px;
+    font-size: 30px;
+    text-decoration:none;
+}
+
+footer{
+    text-align: center;
+    background-color: black;
+    color: white;
+}
