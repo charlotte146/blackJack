@@ -4,13 +4,74 @@ html,body{
     font-family: Helvetica, sans-serif;
 }
 
-#jeu{
+.jeu{
     width: 1200px;
     height: 600px;
     margin: auto;
+    border: solid brown 5px;
+    border-radius: 10px;
     background-color: #1E5128;
     color:white;
+
+    box-sizing: border-box;
+
+    padding:20px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
 }
+
+h2{
+    text-align: center;
+}
+.box{
+    flex:auto;
+
+
+}
+
+.box-players{
+    display: flex;
+    flex-direction: row;
+    column-gap: 10px;
+}
+
+.player{
+    flex:auto;
+    border: white solid 1px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    padding: 5px;
+    text-align: center;
+
+}
+
+.cardS{
+
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    row-gap: 2px;
+
+}
+
+.card{
+    width: 50px;
+    height: 75px;
+    background-color: white;
+    border: 1px solid grey;
+    border-radius: 5px;
+    color: black;
+    flex:none;
+    
+}
+
+.card p{
+    margin: auto;
+   
+
+}
+
 
 
 
