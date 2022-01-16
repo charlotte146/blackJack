@@ -3,11 +3,28 @@ html,body{
     margin: 0%;
     font-family: Helvetica, sans-serif;
 }
+body{
+    height:100vh;
+    background-color: darkslategray;
+}
+
+h1{
+    color: white;
+    text-align: center;
+    margin: 20px;
+}
+
+.jeu_et_actions{
+    display: flex;
+    margin: auto;
+    width: 90% ;
+    column-gap: 20px;
+}
 
 .jeu{
-    width: 1200px;
+    flex: 85%;
     height: 600px;
-    margin: auto;
+
     border: solid brown 5px;
     border-radius: 10px;
     background-color: #1E5128;
@@ -21,13 +38,32 @@ html,body{
     row-gap: 20px;
 }
 
+.actions{
+    flex: 15%;
+    height: 600px;
+    box-sizing: border-box;
+    border: solid brown 5px;
+    border-radius: 10px;
+    background-color: lightblue;
+
+    text-align:center;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    row-gap: 10px;
+}
+
+button{
+    padding: 10px 20px;
+
+}
+
 h2{
     text-align: center;
 }
+
 .box{
     flex:auto;
-
-
 }
 
 .box-players{
@@ -43,46 +79,42 @@ h2{
     box-sizing: border-box;
     padding: 5px;
     text-align: center;
-
 }
 
-.cardS{
-
+.cards{
     margin: auto;
     display: flex;
     flex-direction: row;
     row-gap: 2px;
-
 }
 
-.card{
+.card_shape{
     width: 50px;
     height: 75px;
     background-color: white;
     border: 1px solid grey;
     border-radius: 5px;
     color: black;
-    flex:none;
-    
+    flex:none;  
 }
 
-.card p{
-    margin: auto;
-   
-
+.card_shape p{
+    text-align: center;
 }
 
-
-
-
-.navbar a{
-    color: black;
-    margin: 20px;
-    font-size: 30px;
-    text-decoration:none;
+.regles{
+    width: 90%;
+    margin: 50px auto;
+    padding: 10px;
+    background-color: lightblue;
+    border-radius: 10px;
+    text-align: center;
+    box-sizing: border-box;
 }
+
 
 footer{
+    padding: 20px;
     text-align: center;
     background-color: black;
     color: white;
