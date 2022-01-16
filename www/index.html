@@ -15,93 +15,93 @@
 </head>
 
 <body>
+	<header>
+		<h1>
+			Black Jack
+		<h1>
+	</header>
+	
+	<content>
+		<div class="jeu_et_actions">
+			<div class="jeu">
+				<div class="box box-croupier player">
+					<h2>Croupier</h2>
 
-	<nav class="navbar">
-		  <a class="navbar-brand">Black Jack</a>
-	</nav>
-	  
-	<div class="container">
-
-		<div class="jeu">
-			<div class="box box-croupier player">
-				<h2>Croupier</h2>
-
-				<div class="cardS"> <!-- function AddCard => Forme  -->
-					<div class="card">
-						<p>1</p> <!-- Math.floor(Math.random()*10)+1 -->
+					<div class="cards"> 
+						<ul class="card_shape">
+							<li class="">_cards[i]</li> 
+							<!--Insérer nouvelle carte-->
+						</ul>
 						
 					</div>
-					
+					<p class="cards_value">CardValue</p> <!-- _cardsValue  -->
+					<p class="player_state">statut en cours</p>  <!-- PlayerState  -->
+				
 				</div>
-				<p>CardValue</p> <!-- Recup _cardsValue  -->
-				<p>statut en cours</p>  <!-- PlayerState  -->
-			
-			</div>
 
-			<!-- Ajouter box via js-->
-			<!-- if addPlayer => nouvelle div  -->
-			<div class="box box-players">
-				<div class=" player">
-					<h2>Name</h2> <!-- let Player.pseudo  -->
-					
-					<div class="cardS"> <!-- function AddCard => Forme  -->
-						<div class="card">
-							<p>1</p> <!-- Math.floor(Math.random()*10)+1 -->
+				<!-- Ajouter box via js-->
+				<!-- if addPlayer => nouvelle div  -->
+				<div class="box box-players"> <!--Div contenant les joueurs-->
+					<div class="player">
+						<h2>Player._pseudo</h2> <!-- let Player.pseudo  -->
+						
+						<div class="cards"> <!-- function AddCard => Forme  -->
+							<div class="card_shape">
+								<p>1</p> <!-- Math.floor(Math.random()*10)+1 -->
+								
+							</div>
 							
 						</div>
-						
+						<p>Player._cardsValue</p> <!-- Recup _cardsValue  -->
+						<p>Player._state</p>  <!-- PlayerState  -->
 					</div>
-					<p>CardValue</p> <!-- Recup _cardsValue  -->
-					<p>statut en cours</p>  <!-- PlayerState  -->
-				
-				</div>
 
-				<div class=" player">
-					<h2>Name</h2> <!-- let Player.pseudo  -->
-					
-					<div class="cardS"> <!-- function AddCard => Forme  -->
-						<div class="card">
-							<p>1</p> <!-- Math.floor(Math.random()*10)+1 -->
+					<div class="player">
+						<h2>Player._pseudo</h2> <!-- let Player.pseudo  -->
+						
+						<div class="cards"> <!-- function AddCard => Forme  -->
+							<div class="card_shape">
+								<p>1</p> <!-- Math.floor(Math.random()*10)+1 -->
+								
+							</div>
 							
 						</div>
-						
+						<p>Player._cardsValue</p> <!-- Recup _cardsValue  -->
+						<p>Player._state</p>  <!-- PlayerState  -->
 					</div>
-					<p>CardValue</p> <!-- Recup _cardsValue  -->
-					<p>statut en cours</p>  <!-- PlayerState  -->
-				
-				</div>
-				
+				</div>	
 			</div>
-
-			
+			<div class="actions">
+				<h2>Actions</h2>
+				<p>Player.pseudo</p>
+				<button>Add Card</button>
+				<button>S'arreter</button>
+			</div>
 		</div>
 
-	<div id="regle">
-		<h2>Les règles du jeu : </h2>
-		<p>
-			La partie oppose individuellement chaque joueur contre la banque. <br>
-			Le but est de battre le croupier sans dépasser le score de 21. <br>
-			Dès qu'un joueur fait plus que 21, on dit qu'il « brûle » et il perd sa mise initiale. <br><br>
+
+		<div class="regles">
+			<h2>Les règles du jeu : </h2>
+			<p>
+			La partie oppose individuellement chaque joueur 	contre la banque. <br>
+			Le but est de battre le croupier sans dépasser le 	score de 21. <br>
+			Dès qu'un joueur fait plus que 21, on dit qu'il « 	brûle » et il perd sa mise initiale. <br><br>
 
 			La valeur des cartes sont les suivantes :<br><br>
 
 			- de 2 à 9 : valeur nominale de la carte ;<br>
-			- de 10 au roi (surnommées « bûche »)  : 10 points ;<br>
+			- de 10 au roi (surnommées « bûche »)  : 10 points 	;<br>
 			- As : 1 ou 11 points (au choix du joueur).<br><br>
 
-			Un Blackjack est la situation ou le joueur reçoit, dès le début du jeu, un As et une buche. <br>
-			Si le joueur atteint 21 points avec plus de deux cartes, on compte 21 points et non Blackjack.<br>
-		</p>
-
-	</div>
-
-	</div>
+			Un Blackjack est la situation ou le joueur reçoit, 	dès le début du jeu, un As et une buche. <br>
+			Si le joueur atteint 21 points avec plus de deux 	cartes, on compte 21 points et non Blackjack.<br>
+			</p>
+		</div>
+	</content>
 
 	<footer>
-		<p>Contact-nous</p>
-
+		<p>Clément Bonneville & Charlotte Dauge & Cédric Demay</p>
 		<p>©LPMN Elbeuf 2022</p>
-
 	</footer>
 
 </body>
