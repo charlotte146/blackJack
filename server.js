@@ -1,11 +1,11 @@
 let express = require('express');
 let bodyparser = require('body-parser');
-const e = require('express');
 
 let app = express();
 let port = 3000;
 
 app.set('view engine', 'ejs');
+
 
 app.listen(port, () => {
 	console.log('Le serveur est en route');
@@ -20,13 +20,23 @@ app.use('/css', express.static(__dirname+ '/node_modules/bootstrap/dist/css'));
 app.use('/views', express.static(__dirname + '/views')); //redirect views
 app.use(bodyparser.urlencoded({extended: false}));
 app.use(bodyparser.json());
+/*
+app.get('/', (req, res, next) => {
+	res.send('Au revoir!');
+});
+
+app.use(express.static(__dirname+'/www'));
+
+
+app.get('/', (req,res,next) => {
+	res.sendFile('/www/index.html');
+});*/
 
 /*----- Classe Joueur -----*/
 
-const status = ["playing","ok","loose","equality","win"];
-
 let nbPlayer = 0 ;
 let players = [] ;
+let playersState = [players.length] ;
 
 class Player {
 	
@@ -36,6 +46,8 @@ class Player {
 		this._cards = [];
 		this._cardsValue = 0;
 
+		if (pseudo == "Croupier") { this._tokens = 1000000; } else { this._tokens = 1000; }
+
 		this._numPlayer = nbPlayer++;
 		this._state = 'playing';
     }
@@ -43,43 +55,33 @@ class Player {
     set pseudo(new_pseudo)         { this._pseudo = new_pseudo 		   ; }
 	set cards(new_cards)           { this._cards = new_cards 		   ; }
 	set cardsValue(new_cardsValue) { this._cardsValue = new_cardsValue ; }
+	set tokens(new_tokens) { this._tokens = new_tokens ; }
 	set state(new_state) { this._state = new_state ; }
 
     get pseudo() 	 { return this._pseudo     ; }
 	get cards()  	 { return this._cards      ; }
 	get cardsValue() { return this._cardsValue ; }
+	get tokens() 	 { return this._tokens     ; }
 	get cardsValue() { return this._cardsValue ; }
 
-	//ajout d'une carte à la main du joueur
 	addCard() {	
 		let newCard = Math.floor(Math.random()*10)+1;
 		this._cards.push(newCard); 
+		console.log(this._cards[0]);
 		this._cardsValue = this.calcCardsValue();
-	}
+	 }
 
-	//remise à zéro de la main des joueurs
 	resetCards() { for (let i = 0 ; i > this._cards.length ; i++) { this._cards.pop() } this._cardsValue = 0; }
 
-	//modification du statut d'un joueur parmi ceux établis dans le tableau status
-	setStatus(new_status) { 
-		for (let i = 0 ; i < status.length ; i++) {
-			if (new_status == status[i]) {
-				this._state = new_status;
-			}
-		}
-	}
+	setOkStatus() { this._state = 'ok'; };
 
-	showStatus() { console.log(this._state); }
-
-	//calcul du total de la main de chaque joueur
 	calcCardsValue() { 
 		let res = 0;
 		for (let i = 0 ; i < this._cards.length ; i++) { res += this._cards[i]; } 
+
 		return res;
 	}
 
-
-	//affichage console des joueurs (uniquement debug)
 	toString() { 
 		let res = `Player n°${this._numPlayer} | Pseudo : ${this._pseudo} | Tokens : ${this._tokens} \n Cards :`;
 
@@ -89,95 +91,79 @@ class Player {
 	}
 }
 
-//Ajout d'un joueur à la liste => bouton à implémenter sur l'interface
 function addPlayer(pseudo) { let tmp = new Player(pseudo); players.push(tmp); }
 
+function isLoose() { for (let i = 0 ; i < players.length ; i++) { if (this._cardsValue > 21) {playersState[i] = 'loose' } } }
 
-//Suppression d'un joueur 
-function removePlayer(pseudo) {
-	for (let i = 0 ; i < players.length ; i++) { 
-		if (players[i]._pseudo == pseudo) {
-			players.splice(i,1);
-		}
-	 } 
-}
+function showPlayers() { for (let i = 0 ; i < players.length ; i++) { console.log (players[i].toString()) } }
 
-
-//comportement complet d'un tour de jeu
-function newTurn() {
-
-	//remise à zéro de la main et du statut de chaque joueur au début du tour puis distribution de deux cartes à chacun d'entre eux
-	for(let i = 0 ; i < players.length ; i++) {
-		players[i].resetCards();
-		players[i].setStatus("playing");
-	
-		for(let i = 0 ; i < players.length ; i++) {
-			players[i].addCard();
-			players[i].addCard();
-		}
-	};
-
-	//gestion du tour des joueurs
-	for(let i = 1 ; i < players.length ; i++) {
-		
-		while(players[i].state != "ok" || players[i].state != "loose") {
-			//ici faire la demande d'action du joueur ("nouvelle carte / s'arreter") => variable choice 
-			/*
-			.
-			.
-			.
-			.
-			.			
-			*/ 
-			switch(choice) {
-				case "O": players[i].addCard(); break;
-				case "N": players[i].setStatus("ok"); break;
-			
-				default:
-					break;
-			}
-		}
-	};
-
-	//gestion du tour du croupier après celui de tout les joueurs
-	while(players[0].state != "ok" || players[0].state != "loose") {
-		if (players[0].cardsValue < 17 && players[0].state != "loose") {
-			players[0].addCard();
-		}
-		else {
-			players[0].setStatus("ok");
-		}
-	}
-
-	//changement des statuts des joueurs selon leur résultat comparé à celui du croupier
-	for(let i = 1 ; i < players.length ; i++) {
-		
-		if (players[i]._state == "ok") {
-			if (players[i]._cardsValue > players[0]._cardsValue) {
-				players[i].setStatus("win");
-			}
-			else {
-				if (players[i]._cardsValue == players[0]._cardsValue) {
-					players.setStatus("equality");
-				}
-				else {
-					if (players[i]._cardsValue < players[0]._cardsValue) {
-						players.setStatus("loose");
-					}
-				}
-			}
-		}	
-	};
-	
-}
-
-//appel en "dur" pour simuler le croupier, mais qui se comporte comme un joueur dans les faits.
 addPlayer("Croupier");
 
+addPlayer("Clement");
+players[1].addCard();
+players[1].addCard();
+
+addPlayer("Charlotte");
+addPlayer("Cedric");
+
+showPlayers();
+
 /*-------------------------*/
+/*
+app.get('/', (req, res, next) => {
+	res.render('index.ejs', {monobjet : myobject});
+});
 
-/*------ Tour de jeu ------*/
 
-while(true) { newTurn(); }
+app.post('/test', (req,res,next) => { 
+	console.log(req.body.name);
+	res.render('index.ejs', {monobjet : myobject});
+});
 
-/*-------------------------*/
+class ajtcarte{
+	this.cards.push(valeur[Math.random(valeur.length)]);
+
+}
+
+
+
+//	prends au hasard une carte dans le paquet (le tableau)
+//	prends 4fois le tableau = 1jeu 
+
+var valeur = {"as" : 1,
+			"deux" : 2,
+			"trois" : 3,
+			"quatre" : 4,
+			"cinq" : 5,
+			"six" : 6,
+			"sept" : 7,
+			"huit" : 8,
+			"neuf" : 9,
+			"dix" : 10,
+			"valet" : 10,
+			"dame" : 10,
+			"roi" : 10, 
+			"as": 11
+			};
+
+
+
+// class Joueur {
+// 	constructor(nom, numero){
+// 		this.pseudo=pseudo;
+// 		this.numero=numero;
+
+// 	}
+// }
+
+console.log=valeur;
+
+
+//body = contenu de la requete, 
+//name = nom du champ du formulaire
+
+
+*/
+
+
+
