@@ -29,21 +29,20 @@
 
 					<div class="cards"> 
 						<ul class="card_shape">
-							<li class="">_cards[i]</li> 
+							<li>players[0]_cards[i]</li> 
 							<!--Insérer nouvelle carte-->
 						</ul>
 						
 					</div>
-					<p class="cards_value">CardValue</p> <!-- _cardsValue  -->
-					<p class="player_state">statut en cours</p>  <!-- PlayerState  -->
+					<p class="cards_value"><%= player[0]._cardsValue %></p>
+					<p class="player_state"><%= player[0].state %></p>
 				
 				</div>
 
-				<!-- Ajouter box via js-->
 				<!-- if addPlayer => nouvelle div  -->
 				<div class="box box-players"> <!--Div contenant les joueurs-->
 					<div class="player">
-						<h2>Player._pseudo</h2> <!-- let Player.pseudo  -->
+						<h2><%= player[1]._pseudo %></h2>
 						
 						<div class="cards"> <!-- function AddCard => Forme  -->
 							<div class="card_shape">
@@ -52,12 +51,13 @@
 							</div>
 							
 						</div>
-						<p>Player._cardsValue</p> <!-- Recup _cardsValue  -->
-						<p>Player._state</p>  <!-- PlayerState  -->
+						<p><%= player[1]._cardsValue %></p>
+						<p><%= player[1].state %></p>
 					</div>
 
+				<div class="box box-players"> <!--Div contenant les joueurs-->
 					<div class="player">
-						<h2>Player._pseudo</h2> <!-- let Player.pseudo  -->
+						<h2><%= player[2]._pseudo %></h2>
 						
 						<div class="cards"> <!-- function AddCard => Forme  -->
 							<div class="card_shape">
@@ -66,11 +66,12 @@
 							</div>
 							
 						</div>
-						<p>Player._cardsValue</p> <!-- Recup _cardsValue  -->
-						<p>Player._state</p>  <!-- PlayerState  -->
-					</div>
+						<p><%= player[2]._cardsValue %></p>
+						<p><%= player[2].state %></p>
+					</div>	
 				</div>	
 			</div>
+
 			<div class="actions">
 				<h2>Actions</h2>
 				<p>Player.pseudo</p>
