@@ -6,9 +6,9 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
   
-	<link rel="stylesheet" href="css/style.css">
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-
+	<link rel="stylesheet" href="../css/style.css">
+	<link rel="stylesheet" href="../css/bootstrap.min.css">
+	<script src="../../server.js"></script>
 <!--<script src="js/jquery.min.js"></script>
 	<script src="js/popper.min.js"></script> 
 	<script src="js/bootstrap.min.js"></script>  -->
@@ -20,68 +20,55 @@
 			Black Jack
 		<h1>
 	</header>
-	
-	<content>
-		<div class="jeu_et_actions">
-			<div class="jeu">
-				<div class="box box-croupier player">
-					<h2>Croupier</h2>
 
-					<div class="cards"> 
-						<ul class="card_shape">
-							<li>players[0]_cards[i]</li> 
-							<!--Insérer nouvelle carte-->
-						</ul>
-						
-					</div>
-					<p class="cards_value"><%= player[0]._cardsValue %></p>
-					<p class="player_state"><%= player[0].state %></p>
+		<div class="jeu_et_actions">
+
+			<div class="jeu">
+
+				<div class="box box-croupier player">
+
+					<h2>Croupier</h2>
+					<p class="cards_value"><%= players[0]._cardsValue %></p>
+					<p class="player_state"><%= players[0].state %></p>
 				
 				</div>
 
-				<!-- if addPlayer => nouvelle div  -->
 				<div class="box box-players"> <!--Div contenant les joueurs-->
+
 					<div class="player">
-						<h2><%= player[1]._pseudo %></h2>
-						
-						<div class="cards"> <!-- function AddCard => Forme  -->
-							<div class="card_shape">
-								<p>1</p> <!-- Math.floor(Math.random()*10)+1 -->
-								
-							</div>
-							
-						</div>
-						<p><%= player[1]._cardsValue %></p>
-						<p><%= player[1].state %></p>
+
+						<h2><%= players[1]._pseudo %></h2>
+						<p><%= players[1]._cardsValue %></p>
+						<p><%= players[1].state %></p>
+
 					</div>
 
-				<div class="box box-players"> <!--Div contenant les joueurs-->
 					<div class="player">
-						<h2><%= player[2]._pseudo %></h2>
-						
-						<div class="cards"> <!-- function AddCard => Forme  -->
-							<div class="card_shape">
-								<p>1</p> <!-- Math.floor(Math.random()*10)+1 -->
-								
-							</div>
-							
-						</div>
-						<p><%= player[2]._cardsValue %></p>
-						<p><%= player[2].state %></p>
+
+						<h2><%= players[2]._pseudo %></h2>
+						<p><%= players[2]._cardsValue %></p>
+						<p><%= players[2].state %></p>
+
 					</div>	
+
 				</div>	
+
 			</div>
 
 			<div class="actions">
+
 				<h2>Actions</h2>
-				<p>Player.pseudo</p>
-				<button>Add Card</button>
+				<p><%= players[i]._pseudo %></p>
+				<button onclick="players[i].addCard()">Ajouter une carte</button>
 				<button>S'arreter</button>
+
 			</div>
+			
 		</div>
 
 
-		<div class="regles">
+		<div class="regles"
+		>
 			<h2>Les règles du jeu : </h2>
 			<p>
 			La partie oppose individuellement chaque joueur 	contre la banque. <br>
@@ -97,12 +84,14 @@
 			Un Blackjack est la situation ou le joueur reçoit, 	dès le début du jeu, un As et une buche. <br>
 			Si le joueur atteint 21 points avec plus de deux 	cartes, on compte 21 points et non Blackjack.<br>
 			</p>
+
 		</div>
-	</content>
 
 	<footer>
+
 		<p>Clément Bonneville & Charlotte Dauge & Cédric Demay</p>
 		<p>©LPMN Elbeuf 2022</p>
+
 	</footer>
 
 </body>
