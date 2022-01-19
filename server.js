@@ -21,6 +21,13 @@ app.use('/views', express.static(__dirname + '/www/views')); //redirect views
 app.use(bodyparser.urlencoded({extended: false}));
 app.use(bodyparser.json());
 
+app.get('/views',(req,res,next)=>{
+	res.render('index.ejs', {
+        players:players[0],
+        players:players[1],
+        players:players[2] }); 
+});
+
 /*----- Classe Joueur -----*/
 
 const status = ["playing","ok","loose","equality","win"];
